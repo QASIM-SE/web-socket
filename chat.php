@@ -26,7 +26,7 @@ class MyChat implements MessageComponentInterface {
    public function onMessage(ConnectionInterface $from, $msg) {
         $numRecv = count($this->clients) - 1;
         $data = json_decode($msg);
-        echo sprintf('Connection %s sending message "%s" to %d other connection%s' . "\n"
+        echo sprintf('%s sending message "%s" to %d other connection%s' . "\n"
             , $data->name1,$data->message, $numRecv, $numRecv == 1 ? '' : 's');
 
             
@@ -42,14 +42,14 @@ class MyChat implements MessageComponentInterface {
         // The connection is closed, remove it, as we can no longer send it messages
         
         foreach ($this->clients as $client) {
-            
                 // The sender is not the receiver, send to each client connected
                 $client->send("User ".$conn->resourceId." Leaved");
           
-        }
-        $this->clients->detach($conn);
-        echo "Connection {$conn->resourceId} has disconnected\n";
-    }
+                }
+                
+                $this->clients->detach($conn);
+                echo "Connection {$conn->resourceId} has disconnected\n";
+            }
 
     public function onError(ConnectionInterface $conn, \Exception $e) {
         echo "An error has occurred: {$e->getMessage()}\n";

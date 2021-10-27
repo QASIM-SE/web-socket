@@ -127,7 +127,7 @@ h1 {
     </style>
 
 
-    <script>
+    <script type="text/javascript">
         // Then some JavaScript in the browser:
         var conn = new WebSocket('ws://localhost:8000/chat');
         conn.onopen = function(e) { 
@@ -143,7 +143,7 @@ h1 {
             return Function1();
           }
           else{  
-        alert("Your name is " + name2);
+        alert("Welcome " + name2);
           }
 
 
@@ -157,10 +157,17 @@ h1 {
     
     function myFunction() {
         var x = document.getElementById("message").value;
-        var name = document.getElementById("name").value;
+        if(x == ""){
+          alert("Must type something");
+        }
+        else{
+          var name = document.getElementById("name").value;
         conn.send(JSON.stringify({name1: name, message: x}));
         // conn.send(x);
         document.getElementById("reply").innerHTML += "You :"+x+"\n";
+        document.getElementById("message").value = "";
+        }
+        
        
     
         }
@@ -171,6 +178,7 @@ h1 {
         document.getElementById("reply").innerHTML += `${event.data}`+"\n";
        
             };
+            
 
     conn.onclose = function(event) {
                 if (event.wasClean) {
@@ -183,14 +191,16 @@ h1 {
                 };
 
 
-                
+              
 
     </script>
+
+   
 
     
    
 </head>
-<body onload="Function1()">
+<body onload="setTimeout(Function1, 1000);">
    
 <div class="container">
     <div class="brand-logo"></div>
@@ -199,9 +209,8 @@ h1 {
       <input class="name_style" type="text" id="name" required disabled/>
     <div class="inputs">
     <label for="">Recived</label>
-    <textarea name="" id="reply" cols="41" rows="5"></textarea>
-    <label for="">Send</label>
-      <input type="text" id="message" value="hi" placeholder="Type here..."/>
+    <textarea name="" id="reply" cols="41" rows="7"></textarea>
+      <input type="text" id="message" value="" placeholder="Type here..." required/>
       <button onclick="myFunction()">Send</button>
       <p id="demo"></p>
     
