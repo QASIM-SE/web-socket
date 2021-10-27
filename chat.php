@@ -56,18 +56,7 @@ class MyChat implements MessageComponentInterface {
 
         $conn->close();
     }
-    private function dispaly_user_name(ConnectionInterface $from, $msg)
-    {
-        
-        $data = json_decode($msg);
-        foreach ($this->clients as $client) {
-            if ($from !== $client) {
-                // The sender is not the receiver, send to each client connected
-                
-                $client->send("User $data->name1 joins the chat\n",$from);
-            }
-        }
-    }
+    
     // set connection name
     private function setConnectionName(ConnectionInterface $from, $name)
     {
